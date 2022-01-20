@@ -1,7 +1,7 @@
 const requestURL = "http://localhost/REST_API/api_backend/posts";
 const postList = document.querySelector(".post-list");
 
-let id = null;
+let selected_id = null;
 
 async function getPosts(url) {
   let res = await fetch(url);
@@ -60,12 +60,13 @@ async function removePost(id) {
 }
 
 async function selectPost(id, title, body) {
-  id = id;
+  selected_id = id;
   document.getElementById("title-edit").value = title;
   document.getElementById("body-edit").value = body;
 }
 
 async function updatePost() {
+  console.log(selected_id);
   const title = document.getElementById("title-edit").value;
   const body = document.getElementById("body-edit").value;
 
@@ -74,7 +75,7 @@ async function updatePost() {
     body: body,
   };
 
-  const res = await fetch(`${requestURL}/${18}`, {
+  const res = await fetch(`${requestURL}/${selected_id}`, {
     method: "PATCH",
     body: JSON.stringify(data),
   });
